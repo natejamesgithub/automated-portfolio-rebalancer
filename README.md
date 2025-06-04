@@ -1,22 +1,26 @@
-# Automated Stock Portfolio Rebalancer
+# 📈 Automated Stock Portfolio Rebalancer
 
-🚀 **Work In Progress**
-
-This Python tool tracks your stock portfolio and automatically suggests trades to keep your asset allocation balanced.
+A Python + Flask web app that tracks your stock portfolio (via Alpaca API or CSV) and suggests trades to rebalance your asset allocation in real-time.
 
 ---
 
-## Features (Planned)
+## ✅ Current Features
 
-- Track current portfolio holdings and prices  
-- Define target asset allocation percentages  
-- Suggest buy/sell trades to rebalance portfolio  
-- Optional integration with Alpaca / Robinhood APIs for automated trading  
-- User-friendly CLI or web interface (TBD)  
+- 🔄 Fetch live holdings via Alpaca or from local CSV
+- 💰 Pull real-time prices via Yahoo Finance
+- 🧮 Calculate current vs. target allocation
+- 📊 Generate buy/sell recommendations to rebalance
+- 🌐 Flask-based web interface to interact with everything
 
 ---
 
-## Getting Started
+## 🚧 Upcoming Enhancements
+
+- ☁️ Deploy to the web (Render/Heroku/Vercel)
+
+---
+
+## 🧑‍💻 Getting Started
 
 1. Clone this repo  
 2. Create and activate a virtual environment:  
