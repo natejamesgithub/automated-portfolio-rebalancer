@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rebalancing Results</title>
+</head>
+<body>
+  <h1>Suggestions</h1>
+  <ul>
+    {% for s in suggestions %}
+      <li>{{ s }}</li>
+    {% endfor %}
+  </ul>
+  <h2>Portfolio Snapshot</h2>
+  <table border="1">
+    <tr>
+      <th>Ticker</th><th>Shares</th><th>Price</th><th>Value</th>
+    </tr>
+    {% for row in portfolio %}
+      <tr>
+        <td>{{ row.tick }}</td>
+        <td>{{ row.shares }}</td>
+        <td>{{ row.price }}</td>
+        <td>{{ row.val }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  <a href="/">Back</a>
+</body>
+</html>
