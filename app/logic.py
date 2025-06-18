@@ -32,7 +32,11 @@ def get_stock_prices(tickers):
     for tick in tickers:
         try: 
             stock = yf.Ticker(tick)
-            prices[tick] = stock.info['regularMarketPrice']
+            price = stock.info.get('regularMarketPrice', None)
+            if price is None:
+                print(f"Warning: Price for {tick} is None, setting to 0")
+                price = 0
+            prices[tick] = price
         except Exception as e:
             print(f"Error fetching price for {tick}: {e}")
             prices[tick] = 0
@@ -40,6 +44,9 @@ def get_stock_prices(tickers):
 
 def calc_values(portfolio_df, prices):
     portfolio_df['price'] = portfolio_df['tick'].map(prices)
+    portfolio_df['price'] = portfolio_df['price'].fillna(0)
+    portfolio_df = portfolio_df[portfolio_df['price'] > 0].copy()
+
     portfolio_df['val'] = portfolio_df['shares'] * portfolio_df['price']
     return portfolio_df
 
@@ -53,6 +60,12 @@ def suggest_rebalance(portfolio_df, target_alloc):
         target_pct = target_alloc.get(tick, 0)
         diff_pct = target_pct - curr_pct
         dollar_diff = diff_pct * total_val
+        
+        if pd.isna(row['price']) or row['price'] <= 0:
+            print(f"Skipping {tick} due to invalid price: {row['price']}")
+            suggestions.append(f"Skipping {tick} due to invalid price.")
+            continue
+
         shares_diff = int(dollar_diff // row['price'])
 
         if shares_diff > 0: 
